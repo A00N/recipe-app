@@ -1,0 +1,1 @@
+A web page where users can create and share their recipes. You will be able to create new user and log in. You can add new recipes to the site as well as comment, like and dislike the recipes. You will also be able to search for different recipes.
