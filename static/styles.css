@@ -1,0 +1,12 @@
+body {
+  background-color: lightblue;
+}
+
+textarea {
+  resize: none;
+}
+
+.body {
+  max-width: 500px;
+  margin: auto;
+}
