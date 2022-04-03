@@ -1,0 +1,15 @@
+<h1> Kirjautuminen </h1>
+{% if session.username %}
+<p>Olet kirjautunut nimellä {{ session.username }}</p>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<form action="/loginTRUE" method="POST">
+    <p>Tunnus:<br>
+        <input name="username" type="text"></p>
+    <p>Salasana:<br>
+        <input name="password" type="password"></p>
+    <input type="submit" value="Kirjaudu">
+</form>
+{% endif %}
+
+<a href="/">Takaisin etusivulle</a>

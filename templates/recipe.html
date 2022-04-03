@@ -1,0 +1,19 @@
+<title> {{recipe.name}} </title>
+
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+</head>
+
+<body>
+<h1>{{recipe.name}}</h1>
+
+({{recipe.category}}) | {{recipe.price}} | {{recipe.time}}
+<br>
+
+<textarea readonly id="box" name="recipe" rows="20" cols="90">
+{{recipe.recipe}}
+    </textarea>
+<br>
+<a href="/recipes">Palaa resepteihin</a>
+
+</body>
