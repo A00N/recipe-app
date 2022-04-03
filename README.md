@@ -18,5 +18,8 @@ Reseptiverkko on nettisivu, jonka tarkoituksena on antaa käyttäjien jakaa omia
 - Sovellus tallentaa reseptit psql tietokantaan toistaiseksi kuitenkin ilman, että se pitää kirjaa reseptin lisääjästä.
 - Reseptejä ei voi toistaiseksi muokata jälkikäteen.
 - Reseptejä voi luoda ainoastaan kirjautuneena.
+- Reseptiin tulee asettaa nimi, valita 1 kategoria (useampi ei tee mitään), hintaluokka sekä aika tai nettisivu kaatuu.
 
 ## Testaaminen
+Alla olevasta linkistä sovelluksen nykyversiota voi kokeilla.
+https://reseptiverkko.herokuapp.com
