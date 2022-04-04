@@ -4,7 +4,7 @@
 Reseptiverkko on nettisivu, jonka tarkoituksena on antaa käyttäjien jakaa omia reseptejään sivulla.
 
 ## Ominaisuudet
-- Rekisteröinti
+- Rekisteröinti (nimi väh 4 merkkiä, salasana väh 5)
 - Kirjautuminen
 - Reseptien lisääminen
 - Reseptien selaaminen listana
