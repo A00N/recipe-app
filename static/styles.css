@@ -7,6 +7,23 @@ textarea {
 }
 
 .body {
-  max-width: 500px;
-  margin: auto;
+  background: green;
 }
+
+.searchBar {
+    width: 400px;
+}
+
+.center {
+    text-align: center;
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.login {
+    text-align: initial;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+

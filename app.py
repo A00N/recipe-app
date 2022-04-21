@@ -10,13 +10,20 @@ app.secret_key = getenv("SECRET_KEY")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+ok=False
+if ok:
+	with open('Database data/times.txt') as f:
+		lines = f.readlines()
+		for line in lines:
+			sql = "INSERT INTO times (time) VALUES (:time)"
+			db.session.execute(sql, {"time": line})
+			db.session.commit()
 
 
 @app.route("/")
 def index():
-	result = db.session.execute("SELECT id, name, category, time, price FROM recipes")
-	recipes = result.fetchall()
-	return render_template("index.html", recipes=recipes)
+	return render_template("index.html")
+
 
 @app.route("/recipes")
 def recipes():
@@ -24,9 +31,17 @@ def recipes():
 	recipes = result.fetchall()
 	return render_template("recipes.html", count=len(recipes), recipes=recipes)
 
+
 @app.route("/new-recipe")
 def newrecipe():
-	return render_template("new-recipe.html")
+	categoryResult = db.session.execute("SELECT id , category FROM categories")
+	timesResult = db.session.execute("SELECT id , time FROM times")
+	pricesResult = db.session.execute("SELECT id , price FROM prices")
+	categories = categoryResult.fetchall()
+	times = timesResult.fetchall()
+	prices = pricesResult.fetchall()
+	return render_template("new-recipe.html", categories=categories, times=times, prices=prices)
+
 
 @app.route("/add-recipe", methods=["POST"])
 def addrecipe():
@@ -43,9 +58,12 @@ def addrecipe():
 	db.session.commit()
 	return redirect("/recipes")
 
+
 @app.route("/login")
 def login():
-	return render_template("login.html")
+	virhe = False
+	return render_template("login.html", virhe=virhe)
+
 
 @app.route("/loginTRUE",methods=["POST"])
 def loginTRUE():
@@ -63,29 +81,37 @@ def loginTRUE():
 			session["username"] = username
 			return redirect("/")
 		else:
+			virhe = True
 			return redirect("/login")
+
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
-	return render_template("register.html")
+	virhe=False
+	return render_template("register.html",virhe=virhe)
+
 
 @app.route("/registerTRUE",methods=["POST", "GET"])
 def registerTRUE():
+	virhe = False
 	username = request.form["username"]
 	password = request.form["password"]
-
 	if len(username)>=4 and len(password)>=5:
 		hash_value = generate_password_hash(password)
 		sql = "INSERT INTO users (username, password) VALUES (:username, :password)"
 		db.session.execute(sql, {"username": username, "password": hash_value})
 		db.session.commit()
-		return redirect("/login")
+		session["username"] = username
+		return redirect("/")
+	virhe = True
 	return redirect("/register")
+
 
 @app.route("/logout")
 def logout():
 	del session["username"]
 	return redirect("/")
+
 
 @app.route("/result")
 def result():
@@ -94,6 +120,7 @@ def result():
 	result = db.session.execute(sql, {"query":"%"+query+"%"})
 	recipes = result.fetchall()
 	return render_template("recipes.html", recipes=recipes)
+
 
 @app.route("/recipes/<int:id>")
 def recipe(id):
