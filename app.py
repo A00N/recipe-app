@@ -35,8 +35,11 @@ def addrecipe():
 	recipe = request.form["recipe"]
 	time = request.form["time"]
 	price = request.form["price"]
+	creator = session["username"]
 	sql = "INSERT INTO recipes (name, category, recipe, time, price) VALUES (:name, :category, :recipe, :time, :price)"
+	sql2 = "INSERT INTO data (recipename, creator) VALUES (:recipename, :creator)"
 	db.session.execute(sql, {"name":name,"category":category,"recipe":recipe,"time":time,"price":price})
+	db.session.execute(sql2, {"recipename":name,"creator":creator})
 	db.session.commit()
 	return redirect("/recipes")
 
