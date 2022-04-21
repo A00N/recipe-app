@@ -1,9 +1,19 @@
+<div class="center">
 <h1> Rekisteröityminen </h1>
+
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+</head>
 
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
+
+{% if virhe %}
+    Käyttäjätunnus tai salasana virheellinen
+{% endif %}
+
 <form action="/registerTRUE" method="POST">
     <p>Tunnus:<br>
         <input name="username" type="text"></p>
@@ -11,7 +21,9 @@
         <input name="password" type="password"></p>
     <input type="submit" value="Rekisteröidy">
 </form>
+    <br>
+    Käyttäjänimen tulee olla vähintään 4 merkkiä ja salasanan vähintään 5 merkkiä.
 {% endif %}
 <a href="/">Takaisin etusivulle</a>
-
+</div>
 

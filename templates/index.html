@@ -1,40 +1,48 @@
-<title>Reseptiverkko</title>
-<h1>Reseptiverkko</h1>
-<b>Tervetuloa</b> <i>reseptiverkkoon</i>!
-<p> Tällä sivulla voit jakaa reseptejä muille.</p>
+<div class="center">
 
-<head>
-    <link href="styles.css" rel="stylesheet">
-</head>
+    <head>
+        <link href="{{url_for('static',filename='styles.css')}}" rel="stylesheet">
+    </head>
 
-<!-- If user is not loggied in, show "Kirjaudu" and "Register" button -->
-{% if not session.username %}
-<p></p>
-<a href="/login">Kirjaudu</a>
-<a href="/register">Rekisteröidy</a>
-{% endif %}
-<!-- If logged in, show users name -->
-{% if session.username %}
-<p>Olet kirjautunut nimellä {{ session.username }}</p>
-<a href="/logout">Kirjaudu ulos</a>
-{% endif %}
+    <title>Reseptiverkko</title>
+    <h1>Reseptiverkko</h1>
+    <b>Tervetuloa</b> <i>reseptiverkkoon</i>!
+    <p> Tällä sivulla voit jakaa reseptejä muille.</p>
 
-<!-- Recipe searchbar and search -->
-<form action="/result" method="GET">
-    <p>Hae reseptiä:</p>
-    <input name="query" type="text">
-    <input type="submit" value="Lähetä">
+
+    <!-- If user is not loggied in, show "Kirjaudu" and "Register" button -->
+    <div class="login">
+        {% if not session.username %}
+        <p></p>
+        <a href="/login">Kirjaudu</a>
+        <br>
+        <a href="/register">Rekisteröidy</a>
+        {% endif %}
+        <!-- If logged in, show users name -->
+        {% if session.username %}
+        <p>Kirjautunut: {{ session.username }}</p>
+        <a href="/logout">Kirjaudu ulos</a>
+        {% endif %}
+    </div>
+
+
+    <!-- Recipe searchbar and search -->
+    <form action="/result" method="GET">
+        <p>Hae reseptiä:</p>
+        <input name="query" size="50" type="text">
+        <input type="submit" value="Lähetä">
+        <p></p>
+    </form>
     <p></p>
-</form>
-<p></p>
 
-<!-- Create recipe button -->
-{% if session.username %}
-<a href="/new-recipe">Lisää resepti</a>
-{% endif %}
-<p></p>
+    <!-- Create recipe button -->
+    {% if session.username %}
+    <a href="/new-recipe">Lisää resepti</a>
+    {% endif %}
+    <p></p>
 
-<!-- Look different recipes -->
-<a href="/recipes">Reseptit</a>
-<p></p>
+    <!-- Look different recipes -->
+    <a href="/recipes">Reseptit</a>
+    <p></p>
 
+</div>

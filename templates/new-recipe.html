@@ -1,38 +1,29 @@
+<div class="center">
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+</head>
+
 {% if session.username %}
 <form action="/add-recipe" method="POST">
     Reseptin nimi:
     <br> </br>
     <textarea cols="80" name="name" rows="1"></textarea>
     <br> </br>
-    <input name="category" type="checkbox" value="Pizza"> Pizza
-    <input name="category" type="checkbox" value="Kiinalainen"> Kiinalainen
-    <input name="category" type="checkbox" value="Korealainen"> Korealainen
-    <input name="category" type="checkbox" value="Meksikolainen"> Meksikolainen
-    <input name="category" type="checkbox" value="Aasialainen"> Aasialainen
-    <br> </br>
-    <input name="category" type="checkbox" value="Suomalainen"> Suomalainen
-    <input name="category" type="checkbox" value="Burgerit"> Burgerit
-    <input name="category" type="checkbox" value="Espanjalainen"> Espanjalainen
-    <input name="category" type="checkbox" value="Pihvit"> Pihvit
-    <input name="category" type="checkbox" value="Intialainen"> Intialainen
-    <br> </br>
-    <input name="category" type="checkbox" value="Italialainen"> Italialainen
-    <input name="category" type="checkbox" value="Kreikkalainen"> Kreikkalainen
-    <input name="category" type="checkbox" value="Salaatti"> Salaatti
-    <input name="category" type="checkbox" value="Jälkiruoka"> Jälkiruoka
-    <input name="category" type="checkbox" value="Kastike"> Kastike
+    {% for value in categories %}
+        <input name="category" type="checkbox" value={{ value.category }}> {{ value.category }}
+    {% endfor %}
+
     <br></br>
-    <input type="radio" name ="price" value="€"> €
-    <input type="radio" name ="price" value="€€"> €€
-    <input type="radio" name ="price" value="€€€"> €€€
-    <input type="radio" name ="price" value="€€€€"> €€€€
-    <input type="radio" name ="price" value="€€€€€"> €€€€€
+    {% for value in prices %}
+        <input type="radio" name ="price" value={{ value.price }}> {{ value.price }}
+    {% endfor %}
+
     <br></br>
-    <input type="radio" name ="time" value="15min"> 15min
-    <input type="radio" name ="time" value="30min"> 30min
-    <input type="radio" name ="time" value="1h"> 1h
-    <input type="radio" name ="time" value="2h"> 2h
-    <input type="radio" name ="time" value="3h+"> 3h+
+
+    {% for value in times %}
+        <input type="radio" name ="price" value={{ value.time }}> {{ value.time }}
+    {% endfor %}
+
     <br></br>
     <textarea cols="80" name="recipe" rows="32"></textarea>
     <br></br>
@@ -48,3 +39,4 @@
 <p> Mikäli sinulla ei ole käyttäjää, voit alta. </p>
 <a href="/register">Rekisteröidy</a>
 {% endif %}
+</div>

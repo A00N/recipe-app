@@ -1,8 +1,17 @@
+<div class="center">
 <h1> Kirjautuminen </h1>
+
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+</head>
+
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
+{% if virhe %}
+    Käyttäjätunnus ja salasana eivät täsmää
+{% endif %}
 <form action="/loginTRUE" method="POST">
     <p>Tunnus:<br>
         <input name="username" type="text"></p>
@@ -13,3 +22,4 @@
 {% endif %}
 
 <a href="/">Takaisin etusivulle</a>
+</div>
