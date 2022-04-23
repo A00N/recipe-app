@@ -1,5 +1,5 @@
 body {
-  background-color: lightblue;
+  background: lightblue;
 }
 
 textarea {
@@ -18,6 +18,8 @@ textarea {
     text-align: center;
     font-size: 18px;
     font-family: "Times New Roman", Times, serif;
+    margin-left: 140px;
+    margin-right: 140px;
 }
 
 .login {
