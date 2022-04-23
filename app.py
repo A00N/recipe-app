@@ -12,34 +12,32 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
-def filldatapsql():
-    action = True
-    if action:
-        with open('Database data/times.txt') as f:
-            lines = f.readlines()
-            for line in lines:
-                sql = "INSERT INTO times (time) VALUES (:time)"
-                db.session.execute(sql, {"time": line})
-                db.session.commit()
-
-        with open('Database data/categories.txt') as f:
-            lines = f.readlines()
-            for line in lines:
-                sql = "INSERT INTO times (category) VALUES (:category)"
-                db.session.execute(sql, {"category": line})
-                db.session.commit()
-
-        with open('Database data/prices.txt') as f:
-            lines = f.readlines()
-            for line in lines:
-                sql = "INSERT INTO times (price) VALUES (:price)"
-                db.session.execute(sql, {"price": line})
-                db.session.commit()
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/control")
+def control():
+    return render_template("control.html")
+
+
+@app.route("/add-data", methods=["POST", "GET"])
+def addData():
+    category = request.form["category"]
+    time = request.form["time"]
+    price = request.form["price"]
+    sql1 = "INSERT INTO categories (category) VALUES (:category)"
+    sql2 = "INSERT INTO times (time) VALUES (:time)"
+    sql3 = "INSERT INTO prices (price) VALUES (:price)"
+    if len(category) > 0:
+        db.session.execute(sql1, {"category": category})
+    if len(time) > 0:
+        db.session.execute(sql2, {"time": time})
+    if len(price) > 0:
+        db.session.execute(sql3, {"price": price})
+    db.session.commit()
+    return render_template("control.html")
 
 
 @app.route("/recipes")
