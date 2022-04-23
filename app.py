@@ -3,6 +3,7 @@ from flask import redirect,render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from os import getenv
 from werkzeug.security import check_password_hash, generate_password_hash
+from filldata import *
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
@@ -10,14 +11,7 @@ app.secret_key = getenv("SECRET_KEY")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-ok=False
-if ok:
-	with open('Database data/times.txt') as f:
-		lines = f.readlines()
-		for line in lines:
-			sql = "INSERT INTO times (time) VALUES (:time)"
-			db.session.execute(sql, {"time": line})
-			db.session.commit()
+filldatapsql()
 
 
 @app.route("/")
@@ -116,7 +110,7 @@ def logout():
 @app.route("/result")
 def result():
 	query = request.args["query"]
-	sql = "SELECT name, category, time, price FROM recipes WHERE lower(name) LIKE :query or lower(category) LIKE :query or time LIKE :query or price = :query"
+	sql = "SELECT id, name, category, time, price FROM recipes WHERE lower(name) LIKE :query or lower(category) LIKE :query or time LIKE :query or price = :query"
 	result = db.session.execute(sql, {"query":"%"+query+"%"})
 	recipes = result.fetchall()
 	return render_template("recipes.html", recipes=recipes)

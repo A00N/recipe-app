@@ -13,3 +13,5 @@ Kreikkalainen
 Salaatti
 Jälkiruoka
 Kastike
+Amerikkalainen
+Suolainen
