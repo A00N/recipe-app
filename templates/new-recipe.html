@@ -9,10 +9,10 @@
     <br> </br>
     <textarea cols="80" name="name" rows="1"></textarea>
     <br> </br>
+
     {% for value in categories %}
         {{ value.category }}:
         <input name="category" type="checkbox" value={{ value.category }}>
-
     {% endfor %}
 
     <br></br>
@@ -23,7 +23,7 @@
     <br></br>
 
     {% for value in times %}
-        <input type="radio" name ="price" value={{ value.time }}> {{ value.time }}
+        <input type="radio" name ="time" value={{ value.time }}> {{ value.time }}
     {% endfor %}
 
     <br></br>
