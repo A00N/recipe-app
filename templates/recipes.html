@@ -6,7 +6,6 @@
     <h1> Olemassa olevien reseptien määrä: {{ count }} </h1>
     <br>
     <form action="/search" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         A-Z<input type="radio" name="order" value="1" required>
         Z-A<input type="radio" name="order" value="2">
         €-€€<input type="radio" name="order" value="3">
