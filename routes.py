@@ -44,6 +44,8 @@ def recipes():
 
 @app.route("/search", methods=["POST"])
 def search():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     value = request.form["order"]
     if value == "1":
         result = db.session.execute("SELECT id, name, category, time, price FROM recipes ORDER BY name ASC")
