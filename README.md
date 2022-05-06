@@ -10,15 +10,17 @@ Reseptiverkko on nettisivu, jonka tarkoituksena on antaa käyttäjien jakaa omia
 - Reseptien selaaminen listana
 - Reseptien haku hakukentässä
 - Reseptiä luodessa on sille mahdollista asettaa hinta- että aikaarvio, sekä otsikko, ohje ja kategoria.
+- Virhe ilmoitukset rekisteröidyttäessä sekä kirjauduttaessa.
+- Reseptin luonnisa, mikäli reseptin nimi on jo varattu, pysyy kirjoitetut tiedot silti lomakkeessa.
 
 ## Nykytilanne
-- Sovelluksessa toimii yllämainitut ominaisuudet. Kuitenkin vaikka kategorioita voi valita reseptiin useita, toimii ainoastaan yksi valituista.
+- Sovelluksessa toimii yllämainitut ominaisuudet.
 - Sovelluksella on maltillinen mutta tyylikäs ja selkeä ulkoasu
-- Lisäksi kategorioita on varsin rajoitetusti, ja niitä tullaan lisäämään jatkossa.
 - Sovellus tallentaa reseptit psql tietokantaan, sekä toiseen tietokantaa reseptin nimen ja luojan
 - Reseptejä ei voi toistaiseksi muokata jälkikäteen.
 - Reseptejä voi luoda ainoastaan kirjautuneena.
-- Reseptiin tulee asettaa nimi, valita 1 kategoria (useampi ei tee mitään), hintaluokka sekä aika tai nettisivu kaatuu.
+- Reseptiin tulee asettaa nimi, valita 1 kategoria, hintaluokka, aika sekä itse ohje.
+- Reseptiä tarkastellessa näkyy myös reseptin luojan käyttäjänimi
 
 ## Testaaminen
 Alla olevasta linkistä sovelluksen nykyversiota voi kokeilla.
