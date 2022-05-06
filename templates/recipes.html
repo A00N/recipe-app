@@ -4,7 +4,15 @@
 
 <div class="center">
     <h1> Olemassa olevien reseptien määrä: {{ count }} </h1>
-<hr>
+    <br>
+    <form action="/search" method="POST">
+        A-Z<input type="radio" name="order" value="1" required>
+        Z-A<input type="radio" name="order" value="2">
+        €-€€<input type="radio" name="order" value="3">
+        €€-€<input type="radio" name="order" value="4">
+        <input type="submit" value="Hae">
+    </form>
+    <hr>
 {% for recipe in recipes %}
 <a href="/recipes/{{recipe.id}}">{{recipe.name}}</a> ({{recipe.category}}) {{recipe.time}} {{recipe.price}}
 
