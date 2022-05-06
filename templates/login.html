@@ -10,17 +10,20 @@
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
-{% if virhe %}
-    Käyttäjätunnus ja salasana eivät täsmää
+
+{% if wrong_input %}
+    Käyttäjätunnus ja salasana eivät täsmää!
 {% endif %}
+
 <form action="/loginTRUE" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <p>Tunnus:<br>
-        <input name="username" type="text"></p>
+        <input name="username" required type="text"></p>
     <p>Salasana:<br>
-        <input name="password" type="password"></p>
+        <input name="password" required type="password"></p>
     <input type="submit" value="Kirjaudu">
 </form>
 {% endif %}
-
+<b></b>
 <a href="/">Takaisin etusivulle</a>
 </div>

@@ -5,29 +5,35 @@
 
 {% if session.username %}
 <form action="/add-recipe" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <h2>Lisää resepti</h2>
+    {% if name_taken %}
+    <b> Reseptin nimi varattu! </b>
+    {% endif %}
+    <br>
     Reseptin nimi:
     <br> </br>
-    <textarea cols="80" name="name" rows="1"></textarea>
+    <textarea cols="80"  name="name" rows="1" required>{{name}}</textarea>
     <br> </br>
 
     {% for value in categories %}
         {{ value.category }}:
-        <input name="category" type="checkbox" value={{ value.category }}>
+        <input name="category" required type="radio" value={{ value.category }}>
     {% endfor %}
 
     <br></br>
     {% for value in prices %}
-        <input type="radio" name ="price" value={{ value.price }}> {{ value.price }}
+        <input type="radio" required name ="price" value={{ value.price }}> {{ value.price }}
     {% endfor %}
 
     <br></br>
 
     {% for value in times %}
-        <input type="radio" name ="time" value={{ value.time }}> {{ value.time }}
+        <input type="radio" required name ="time" value={{ value.time }}> {{ value.time }}
     {% endfor %}
 
     <br></br>
-    <textarea cols="80" name="recipe" rows="32"></textarea>
+    <textarea cols="80"  required name="recipe" rows="32">{{recipe}}</textarea>
     <br></br>
     <input type="submit" value="Lähetä">
     <a href="/">Takaisin</a>

@@ -10,20 +10,32 @@
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 
-{% if virhe %}
-    Käyttäjätunnus tai salasana virheellinen
-{% endif %}
+    {% if name_taken %}
+    <b> Käyttäjänimi varattu </b>
+    {% endif %}
+
+    {% if nonmatch %}
+    <b> Salasanat eivät täsmää! </b>
+    {% endif %}
+
+    {% if wrong_length %}
+    <b> Käyttäjänimi tai salasana liian lyhyt tai käyttäjänimi tai salasana liian pitkä </b>
+    {% endif %}
 
 <form action="/registerTRUE" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <p>Tunnus:<br>
-        <input name="username" type="text"></p>
+        <input name="username" required type="text"></p>
     <p>Salasana:<br>
-        <input name="password" type="password"></p>
+        <input name="password" required type="password"></p>
+    <p>Salasana uudestaan:<br>
+        <input name="password2" required type="password"></p>
     <input type="submit" value="Rekisteröidy">
 </form>
     <br>
-    Käyttäjänimen tulee olla vähintään 4 merkkiä ja salasanan vähintään 5 merkkiä.
+    Käyttäjänimen tulee olla vähintään 4 merkkiä ja salasanan vähintään 5 merkkiä. Maksimipituudet 15 merkkiä.
 {% endif %}
+    <br>
 <a href="/">Takaisin etusivulle</a>
 </div>
 
