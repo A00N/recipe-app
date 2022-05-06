@@ -42,6 +42,21 @@ def recipes():
     return render_template("recipes.html", count=len(recipes), recipes=recipes)
 
 
+@app.route("/search", methods=["POST"])
+def search():
+    value = request.form["order"]
+    if value == "1":
+        result = db.session.execute("SELECT id, name, category, time, price FROM recipes ORDER BY name ASC")
+    elif value == "2":
+        result = db.session.execute("SELECT id, name, category, time, price FROM recipes ORDER BY name DESC")
+    elif value == "3":
+        result = db.session.execute("SELECT id, name, category, time, price FROM recipes ORDER BY LENGTH(price)")
+    elif value == "4":
+        result = db.session.execute("SELECT id, name, category, time, price FROM recipes ORDER BY LENGTH(price) DESC")
+    recipes = result.fetchall()
+    return render_template("recipes.html", count=len(recipes), recipes=recipes)
+
+
 @app.route("/new-recipe")
 def newrecipe():
     categoryResult = db.session.execute("SELECT id , category FROM categories")
@@ -87,6 +102,32 @@ def addrecipe():
     db.session.execute(sql2, {"recipename": name, "creator": creator})
     db.session.commit()
     return redirect("/recipes")
+
+
+@app.route("/recipes/<int:id>")
+def recipe(id):
+    sql = "SELECT id, name, category, recipe, time, price FROM recipes WHERE id=:id"
+    result = db.session.execute(sql, {"id": id})
+    recipe = result.fetchone()
+
+    find_creator = "SELECT creator FROM data, recipes WHERE data.recipename=recipes.name AND recipes.id=:id"
+    creator_result = db.session.execute(find_creator, {"id": id})
+    creator_found = creator_result.fetchone()
+    try:
+        creator = creator_found[0]
+    except:
+        creator = "Ei luojaa"
+    return render_template("recipe.html", id=id, recipe=recipe, creator=creator)
+
+
+@app.route("/result")
+def result():
+    prequery = request.args["query"]
+    query = prequery.lower()
+    sql = "SELECT id, name, category, time, price FROM recipes WHERE lower(name) LIKE :query or lower(category) LIKE :query or time LIKE :query or price LIKE :query"
+    result = db.session.execute(sql, {"query": "%" + query + "%"})
+    recipes = result.fetchall()
+    return render_template("recipes.html", recipes=recipes)
 
 
 @app.route("/login")
@@ -160,27 +201,3 @@ def logout():
     return redirect("/")
 
 
-@app.route("/result")
-def result():
-    prequery = request.args["query"]
-    query = prequery.lower()
-    sql = "SELECT id, name, category, time, price FROM recipes WHERE lower(name) LIKE :query or lower(category) LIKE :query or time LIKE :query or price LIKE :query"
-    result = db.session.execute(sql, {"query": "%" + query + "%"})
-    recipes = result.fetchall()
-    return render_template("recipes.html", recipes=recipes)
-
-
-@app.route("/recipes/<int:id>")
-def recipe(id):
-    sql = "SELECT id, name, category, recipe, time, price FROM recipes WHERE id=:id"
-    result = db.session.execute(sql, {"id": id})
-    recipe = result.fetchone()
-
-    find_creator = "SELECT creator FROM data, recipes WHERE data.recipename=recipes.name AND recipes.id=:id"
-    creator_result = db.session.execute(find_creator, {"id": id})
-    creator_found = creator_result.fetchone()
-    try:
-        creator = creator_found[0]
-    except:
-        creator = "Ei luojaa"
-    return render_template("recipe.html", id=id, recipe=recipe, creator=creator)
