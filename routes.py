@@ -162,8 +162,9 @@ def logout():
 
 @app.route("/result")
 def result():
-    query = request.args["query"]
-    sql = "SELECT id, name, category, time, price FROM recipes WHERE lower(name) LIKE :query or lower(category) LIKE :query or time LIKE :query or price = :query"
+    prequery = request.args["query"]
+    query = prequery.lower()
+    sql = "SELECT id, name, category, time, price FROM recipes WHERE lower(name) LIKE :query or lower(category) LIKE :query or time LIKE :query or price LIKE :query"
     result = db.session.execute(sql, {"query": "%" + query + "%"})
     recipes = result.fetchall()
     return render_template("recipes.html", recipes=recipes)
