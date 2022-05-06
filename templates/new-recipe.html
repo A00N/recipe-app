@@ -1,7 +1,8 @@
-<div class="center">
 <head>
 <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 </head>
+
+<div class="center">
 
 {% if session.username %}
 <form action="/add-recipe" method="POST">
