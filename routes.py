@@ -10,31 +10,6 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/control")
-def control():
-    return render_template("control.html")
-
-
-@app.route("/add-data", methods=["POST", "GET"])
-def addData():
-    if session["csrf_token"] != request.form["csrf_token"]:
-        abort(403)
-    category = request.form["category"]
-    time = request.form["time"]
-    price = request.form["price"]
-    sql1 = "INSERT INTO categories (category) VALUES (:category)"
-    sql2 = "INSERT INTO times (time) VALUES (:time)"
-    sql3 = "INSERT INTO prices (price) VALUES (:price)"
-    if len(category) > 0:
-        db.session.execute(sql1, {"category": category})
-    if len(time) > 0:
-        db.session.execute(sql2, {"time": time})
-    if len(price) > 0:
-        db.session.execute(sql3, {"price": price})
-    db.session.commit()
-    return render_template("control.html")
-
-
 @app.route("/recipes")
 def recipes():
     result = db.session.execute("SELECT id, name, category, time, price FROM recipes")
