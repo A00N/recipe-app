@@ -2,7 +2,7 @@
 
 ## Kuvaus
 Reseptiverkko on nettisivu, jonka tarkoituksena on antaa käyttäjien jakaa omia reseptejään sivulla.
-
+##HUOM! Koska Heroku ei ole enää ilmainen, ei sovellus pyöri muuten kuin lokaalisti!
 ## Ominaisuudet
 - Rekisteröinti (nimi väh 4 merkkiä, salasana väh 5)
 - Kirjautuminen
